@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#070a12"><meta name="description" content="Distributed trace waterfall and span latency analyzer">
+<title>TraceWaterfall — Distributed Trace Intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script><link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<div class="shell">
+<header class="topbar"><a class="brand" href="#"><span class="brand-mark">⌁</span><span>TRACE<span class="cyan">WATERFALL</span><small>OBSERVABILITY / LAB</small></span></a><div class="engine"><span class="pulse"></span><span>TRACEWATERFALL ENGINE: ACTIVE</span><span class="muted">• SPAN &amp; CRITICAL-PATH ANALYZER READY</span></div><button id="resetBtn" class="ghost">↺ Reset demo</button></header>
+<main>
+<section class="hero"><div><div class="eyebrow">DISTRIBUTED SYSTEMS / TRACE INTELLIGENCE</div><h1>See where your <span class="gradient">latency lives.</span></h1><p>Decompose every request. Separate span self-time from downstream wait. Find the path that holds everything up.</p></div><div class="hero-actions"><button id="loadSlow" class="secondary">↘ Load slow checkout trace</button><button id="analyzeBtn" class="primary">◎ Analyze selected trace</button></div></section>
+<section class="metrics">
+<div class="metric"><span>TOTAL TRACE DURATION</span><strong id="totalDuration">—<small> ms</small></strong><i>End-to-end elapsed time</i></div>
+<div class="metric"><span>SPAN OPERATIONS</span><strong id="spanCount">—</strong><i>Across service boundaries</i></div>
+<div class="metric"><span>ERROR SPANS</span><strong id="errorCount" class="rose">—</strong><i>Failed or degraded operations</i></div>
+<div class="metric"><span>CRITICAL PATH</span><strong id="criticalCount" class="violet">—</strong><i>Spans on longest dependency chain</i></div>
+</section>
+<section class="workspace">
+<div class="panel controls"><div class="panel-head"><div><div class="eyebrow">01 / TRACE INPUT</div><h2>Trace workspace</h2></div><span class="live-tag">LIVE DATA</span></div>
+<label for="traceSelect">SELECT TRACE</label><select id="traceSelect"></select>
+<div class="inline-fields"><div><label for="threshold">SLOW SPAN THRESHOLD</label><div class="input-wrap"><input id="threshold" type="number" min="1" max="60000" value="250"><span>ms</span></div></div><div><label>ENGINE</label><div class="engine-chip">PYTHON 3.12 / SQLITE</div></div></div>
+<div class="editor-head"><label for="jsonEditor">SPAN PAYLOAD <span class="muted">· EDITABLE JSON</span></label><button id="formatBtn" class="text-btn">Format JSON</button></div><textarea id="jsonEditor" spellcheck="false"></textarea>
+<div class="control-foot"><span id="dataSource" class="muted">Connecting to trace engine…</span><button id="computeBtn" class="primary small">Compute waterfall ↗</button></div>
+</div>
+<div class="panel findings"><div class="panel-head"><div><div class="eyebrow">02 / DIAGNOSTICS</div><h2>Bottleneck findings</h2></div><span id="findingCount" class="count-pill">0 FINDINGS</span></div><div id="findingsList" class="findings-list"><div class="empty">Select a trace and run the analyzer.</div></div><div class="advisor"><div class="advisor-icon">✳</div><div><b>Optimization advisor</b><p id="advisorText">Recommendations appear here after analysis, ranked by potential impact.</p></div></div></div>
+</section>
+<section class="panel waterfall-panel"><div class="panel-head"><div><div class="eyebrow">03 / EXECUTION TIMELINE</div><h2>Span waterfall <span class="muted">/ self-time inspector</span></h2></div><div class="legend"><span><i class="dot cyan-bg"></i>Span duration</span><span><i class="dot violet-bg"></i>Self-time</span><span><i class="dot amber-bg"></i>Slow</span><span><i class="dot rose-bg"></i>Error</span></div></div>
+<div class="timeline-scale" id="timelineScale"><span>OFFSET</span><span>Run analysis to render span timeline</span></div><div id="waterfall" class="waterfall"><div class="empty">No timeline yet. Choose a trace and compute its waterfall.</div></div>
+<div class="timeline-foot"><span>BAR WIDTH = INCLUSIVE SPAN DURATION</span><span>SELF-TIME = DURATION − UNION OF DIRECT CHILD INTERVALS</span></div></section>
+<footer><span>TRACEWATERFALL <b>v1.0.0</b> · DISTRIBUTED TRACE ANALYSIS</span><span>BUILT FOR THE DETAILS BETWEEN THE SERVICES.</span></footer>
+</main></div><div id="toast" role="status" class="toast"></div><script src="/app.js" defer></script>
+</body></html>
